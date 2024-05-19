@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">roommates</string>
+    <string name="app_name">Roomates Management</string>
+    <string name="google_maps_key">Select a hotel below to see more details on each hotel and our top exploring recommendations</string>
 </resources>

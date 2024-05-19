@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorPrimary">#00b3ff</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="view_divider_color_2">#DADADA</color>
+
+    <color name="normal_color">#808080</color> <!-- 눌리지 않았을 때의 색상 -->
+    <color name="pressed_color">#000000</color> <!-- 눌렸을 때의 색상 -->
+
 </resources>

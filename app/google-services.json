@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "254581895962",
+    "project_id": "roomates-d6183",
+    "storage_bucket": "roomates-d6183.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254581895962:android:720b0cee00bfc0ca2e72a3",
+        "android_client_info": {
+          "package_name": "com.management.roomates"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhbqsviRdhBf4jZ5zQTsfrOtaO9Bv3jyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
