@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.management.roomates.data.model.Post" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewPostText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.text}" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewPostImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="image_preview"
+            android:scaleType="centerCrop" />
+
+    </LinearLayout>
+
+</layout>

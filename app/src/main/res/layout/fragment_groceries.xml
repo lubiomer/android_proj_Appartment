@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.GroceriesFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.management.roomates.viewmodel.GroceriesViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewGreeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello!"
+                android:visibility="gone"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:src="@drawable/grocery"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textViewGroceriesManagement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shopping Management"
+                android:visibility="gone"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
+
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Who Performs | Date"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewUpcomingPurchases"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textLastUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Updated by"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Roommate Name"
+                android:layout_marginBottom="8dp"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/editTextRoommateName"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="LabelFor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextItemName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Item Name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Quantity"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select Date"
+                    android:focusable="false"
+                    android:clickable="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonAddGrocery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Grocery"
+                android:layout_gravity="center"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_marginBottom="16dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGroceries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 />
+        </LinearLayout>
+    </ScrollView>
+</layout>

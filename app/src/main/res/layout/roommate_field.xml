@@ -16,32 +16,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/roommateName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/roommatePhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/roommateEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email" />
+
     </com.google.android.material.textfield.TextInputLayout>
+
 </LinearLayout>

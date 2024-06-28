@@ -3,6 +3,8 @@ package com.management.roomates.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -25,6 +27,7 @@ import com.management.roomates.R
 import com.management.roomates.data.model.User
 import com.management.roomates.databinding.FragmentRegisterBinding
 import com.management.roomates.viewmodel.AuthViewModel
+import com.management.roomates.viewmodel.AuthViewModelFactory
 
 class RegisterFragment : Fragment() {
 
@@ -38,7 +41,9 @@ class RegisterFragment : Fragment() {
     private lateinit var numberOfRoommates: EditText
     private lateinit var sharedPasswordEditText: EditText
 
-    private val authViewModel: AuthViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels() {
+        AuthViewModelFactory(requireContext())
+    }
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
@@ -102,73 +107,91 @@ class RegisterFragment : Fragment() {
         val sharedPassword = sharedPasswordEditText.text.toString().trim()
 
         registerRoommates(sharedPassword, address)
-        Toast.makeText(requireContext(), "User registered successfully.", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_registerFragment_to_apartmentManagementFragment)
+
     }
 
     private fun registerRoommates(sharedPassword: String, address: String) {
         val roommates = mutableListOf<Map<String, String>>()
 
-        for (i in 0 until roommatesContainer.childCount) {
-            val roommateView = roommatesContainer.getChildAt(i)
-            val roommateName = roommateView.findViewById<EditText>(R.id.roommateName).text.toString().trim()
-            val roommatePhone = roommateView.findViewById<EditText>(R.id.roommatePhone).text.toString().trim()
-            val roommateEmail = roommateView.findViewById<EditText>(R.id.roommateEmail).text.toString().trim()
-
-            if (roommateName.isNotEmpty() && roommatePhone.isNotEmpty() && roommateEmail.isNotEmpty()) {
-                val roommate = User(
-                    email = roommateEmail,
-                    password = sharedPassword,
-                    name = roommateName,
-                    phone = roommatePhone
-                )
-                roommates.add(
-                    mapOf(
-                        "name" to roommateName,
-                        "phone" to roommatePhone,
-                        "email" to roommateEmail
-                    )
-                )
-
-                // Create a new user for each roommate with the same shared password
-                authViewModel.register(roommate).observe(viewLifecycleOwner, Observer { result ->
-                    if (result.isSuccess) {
-                        // Roommate successfully registered
-                    } else {
-                        Toast.makeText(requireContext(), "Failed to register roommate: ${result.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
-                    }
-                })
-            }
-        }
-
+        val ref = firestore.collection("apartments").document()
         val apartment = hashMapOf(
+            "id" to ref.id,
             "address" to address,
             "sharedPassword" to sharedPassword,
-            "roommates" to roommates
+//            "roommates" to roommates
         )
 
         firestore.collection("apartments")
-            .add(apartment)
+            .document(ref.id).set(apartment)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "Apartment registered successfully", Toast.LENGTH_SHORT).show()
+
+                for (i in 0 until roommatesContainer.childCount) {
+                    val roommateView = roommatesContainer.getChildAt(i)
+                    val roommateName = roommateView.findViewById<EditText>(R.id.roommateName).text.toString().trim()
+                    val roommatePhone = roommateView.findViewById<EditText>(R.id.roommatePhone).text.toString().trim()
+                    val roommateEmail = roommateView.findViewById<EditText>(R.id.roommateEmail).text.toString().trim()
+
+                    if (roommateName.isNotEmpty() && roommatePhone.isNotEmpty() && roommateEmail.isNotEmpty()) {
+                        val roommate = User(
+                            email = roommateEmail,
+                            password = sharedPassword,
+                            name = roommateName,
+                            phone = roommatePhone,
+                            apartmentId = ref.id
+                        )
+                        roommates.add(
+                            mapOf(
+                                "name" to roommateName,
+                                "phone" to roommatePhone,
+                                "email" to roommateEmail
+                            )
+                        )
+
+                        // Create a new user for each roommate with the same shared password
+                        authViewModel.register(roommate).observe(viewLifecycleOwner, Observer { result ->
+                            if (result.isSuccess) {
+                                // Roommate successfully registered
+                                firestore.collection("apartments")
+                                    .document(ref.id).update("roommates",roommates)
+                                if (i == roommatesContainer.childCount-1){
+                                    Toast.makeText(requireContext(), "Roommates registered successfully.", Toast.LENGTH_SHORT).show()
+                                    findNavController().navigate(R.id.apartmentManagementFragment)
+                                }
+                            } else {
+                                Toast.makeText(requireContext(), "Failed to register roommate: ${result.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                findNavController().navigate(R.id.apartmentManagementFragment)
+//                },3000)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(requireContext(), "Failed to register apartment: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 val place = Autocomplete.getPlaceFromIntent(data)
                 addressEditText.setText(place.name)
-            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR && data != null) {
                 val status = Autocomplete.getStatusFromIntent(data)
                 Toast.makeText(requireContext(), "Error: ${status.statusMessage}", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Autocomplete canceled or data is null", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

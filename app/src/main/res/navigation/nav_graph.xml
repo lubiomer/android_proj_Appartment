@@ -8,7 +8,7 @@
         android:id="@+id/loginFragment"
         android:name="com.management.roomates.view.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -21,7 +21,7 @@
         android:id="@+id/registerFragment"
         android:name="com.management.roomates.view.RegisterFragment"
         android:label="Register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_apartmentManagementFragment"
             app:destination="@id/apartmentManagementFragment" />
@@ -31,5 +31,52 @@
         android:id="@+id/apartmentManagementFragment"
         android:name="com.management.roomates.view.ApartmentManagementFragment"
         android:label="Apartment Management"
-        tools:layout="@layout/fragment_apartment_management" />
+        tools:layout="@layout/fragment_apartment_management">
+        <action
+            android:id="@+id/action_apartmentManagementFragment_to_groceriesFragment"
+            app:destination="@id/groceriesFragment" />
+        <action
+            android:id="@+id/action_apartmentManagementFragment_to_billingsFragment"
+            app:destination="@id/billingsFragment" />
+        <action
+            android:id="@+id/action_apartmentManagementFragment_to_cleaningFragment"
+            app:destination="@id/cleaningFragment" />
+        <action
+            android:id="@+id/action_apartmentManagementFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_apartmentManagementFragment_to_updatesFragment"
+            app:destination="@id/updatesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/groceriesFragment"
+        android:name="com.management.roomates.view.GroceriesFragment"
+        android:label="Groceries"
+        tools:layout="@layout/fragment_groceries" />
+
+    <fragment
+        android:id="@+id/billingsFragment"
+        android:name="com.management.roomates.view.BillingsFragment"
+        android:label="Billings"
+        tools:layout="@layout/fragment_billings" />
+
+    <fragment
+        android:id="@+id/cleaningFragment"
+        android:name="com.management.roomates.view.CleaningShiftFragment"
+        android:label="Cleaning"
+        tools:layout="@layout/fragment_cleaning_shift" />
+
+    <fragment
+        android:id="@+id/updatesFragment"
+        android:name="com.management.roomates.view.UpdatesFragment"
+        android:label="Updates"
+        tools:layout="@layout/fragment_updates" />
+
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.management.roomates.view.WeatherFragment"
+        android:label="Weather"
+        tools:layout="@layout/fragment_weather" />
+
 </navigation>

@@ -12,14 +12,16 @@ import androidx.navigation.fragment.findNavController
 import com.management.roomates.R
 import com.management.roomates.databinding.FragmentLoginBinding
 import com.management.roomates.viewmodel.AuthViewModel
+import com.management.roomates.viewmodel.AuthViewModelFactory
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val authViewModel: AuthViewModel by viewModels()
-
+    private val authViewModel: AuthViewModel by viewModels {
+        AuthViewModelFactory(requireContext())
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
